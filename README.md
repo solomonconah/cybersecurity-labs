@@ -99,6 +99,6 @@ Do not use these techniques against systems without explicit permission.
 
 ## Author
 
-Chidi Solomon
+Chidiebere Solomon Onah
 
 Cybersecurity Professional | AI Governance Advocate | WordPress Security Specialist
