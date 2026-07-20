@@ -1,3 +1,4 @@
+![Nmap Version Scan](../../images/network-scanning/nmap-version-scan.png)
 # Network Scanning with Nmap
 
 ## Objective
