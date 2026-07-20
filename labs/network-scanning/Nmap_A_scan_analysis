@@ -1,0 +1,250 @@
+Lab 02: Comprehensive Nmap Aggressive Scan (-A)
+Objective
+
+The objective of this assessment was to perform an in-depth reconnaissance of the target host using Nmap's Aggressive Scan (-A) option. The scan aimed to identify:
+
+Open ports
+Running services
+Service versions
+Host information
+Operating system characteristics
+Default script results
+Additional security-relevant information
+Scan Command
+db_nmap -Pn -n -A 172.16.59.129
+Command Breakdown
+Option	Purpose
+db_nmap	Runs Nmap inside the Metasploit Framework and stores results in its database.
+-Pn	Assumes the host is online and skips ICMP host discovery.
+-n	Disables DNS resolution to reduce scan time.
+-A	Enables aggressive scanning, including version detection, OS detection, default NSE scripts, and traceroute.
+Executive Summary
+
+The target host is confirmed to be Metasploitable 2, an intentionally vulnerable Linux system used for security training.
+
+The scan identified:
+
+23 open TCP ports
+Multiple outdated services
+Several legacy protocols
+Default configurations
+Insecure cryptographic settings
+Exposed administrative services
+
+Overall, the host presents a very large attack surface, which is expected for a training environment but would pose significant risk if found on a production network.
+
+Detailed Analysis
+1. FTP Service (Port 21)
+
+Service: vsftpd 2.3.4
+
+Findings
+Anonymous FTP login is enabled.
+Control and data channels operate in plaintext.
+Anonymous FTP login allowed
+Security Impact
+
+Allowing anonymous access can expose sensitive files if not carefully configured. Plaintext FTP also means credentials and transferred data can be intercepted on untrusted networks.
+
+Risk: High
+
+2. SSH (Port 22)
+
+OpenSSH 4.7p1
+
+Findings
+
+Nmap retrieved the server's public host keys.
+
+This confirms SSH is correctly advertising its identity, but the version is outdated and should be reviewed for compatibility with current security standards.
+
+Risk: Medium
+
+3. SMTP (Port 25)
+Findings
+
+Nmap enumerated SMTP capabilities, including:
+
+STARTTLS
+VRFY
+PIPELINING
+Security Observation
+
+The availability of the VRFY command may allow user enumeration depending on server configuration.
+
+The server also advertises SSLv2, an obsolete protocol that is no longer considered secure.
+
+The certificate presented is expired.
+
+Risk: High
+
+4. DNS (Port 53)
+ISC BIND 9.4.2
+Findings
+
+The server disclosed its version information.
+
+Security Observation
+
+Version disclosure can assist an attacker in identifying publicly documented vulnerabilities associated with that release.
+
+Risk: Medium
+
+5. Web Server (Port 80)
+
+Apache 2.2.8
+
+Findings
+
+The HTTP title reveals:
+
+Metasploitable2 - Linux
+Security Observation
+
+The page title and server banner provide fingerprinting information that helps identify the underlying platform. Reducing unnecessary information disclosure is a common hardening practice.
+
+Risk: Medium
+
+6. RPC/NFS Services
+
+The scan identified several RPC services, including:
+
+rpcbind
+mountd
+nlockmgr
+status
+NFS
+Security Observation
+
+RPC and NFS services should only be exposed where operationally necessary. Exported shares and access controls should be reviewed.
+
+Risk: Medium
+
+7. SMB (Ports 139 and 445)
+Samba 3.0.20
+Findings
+
+The SMB version is disclosed.
+
+Security Observation
+
+Older Samba versions have had multiple publicly documented vulnerabilities over time. Administrators should ensure supported versions and appropriate authentication controls are in place.
+
+Risk: High
+
+8. Legacy Remote Administration Services
+
+Detected services include:
+
+rexecd
+rlogin
+rsh
+Security Observation
+
+These protocols are considered legacy and transmit data insecurely. Modern environments typically replace them with SSH.
+
+Risk: High
+
+9. MySQL (3306)
+
+Nmap successfully retrieved server metadata, including:
+
+Protocol version
+Authentication capabilities
+Server version
+Security Observation
+
+Database services should generally be restricted to trusted hosts and networks. Exposure increases the importance of strong authentication and network controls.
+
+Risk: High
+
+10. PostgreSQL (5432)
+
+The scan detected:
+
+PostgreSQL 8.3.x
+An expired SSL certificate
+Security Observation
+
+Expired certificates can indicate poor maintenance practices and should be renewed in production environments.
+
+Risk: Medium
+
+11. VNC (5900)
+
+Nmap identified:
+
+Protocol 3.3
+Security Observation
+
+Older VNC protocol versions provide limited security features and should be protected with strong authentication and network restrictions.
+
+Risk: Medium
+
+12. IRC Server
+UnrealIRCd
+Findings
+
+Nmap collected server metadata, including:
+
+Server name
+Version
+Uptime
+User count
+Security Observation
+
+Publicly exposed version information can aid fingerprinting and vulnerability research.
+
+Risk: Medium
+
+Information Disclosure Findings
+
+The scan revealed several types of information disclosure:
+
+Service versions
+Hostname
+Workgroup name
+SSL certificate details
+Public SSH keys
+SMTP capabilities
+MySQL server metadata
+IRC server information
+
+While not vulnerabilities on their own, such disclosures can assist attackers during reconnaissance.
+
+Overall Risk Assessment
+Category	Risk
+Attack Surface	High
+Legacy Protocols	High
+Outdated Software	High
+Information Disclosure	Medium
+Encryption Configuration	High
+Network Exposure	High
+Defensive Recommendations
+
+To improve the security posture of a comparable production system:
+
+Disable unnecessary services and legacy protocols (e.g., Telnet, RSH, Rlogin).
+Replace FTP with secure alternatives such as SFTP or FTPS where appropriate.
+Upgrade unsupported or outdated software versions.
+Remove anonymous access unless there is a documented business need.
+Disable obsolete cryptographic protocols such as SSLv2.
+Renew expired TLS certificates.
+Limit exposure of administrative and database services through firewalls and network segmentation.
+Minimize service banner and version disclosure where feasible.
+Conduct regular vulnerability assessments and patch management.
+Skills Demonstrated
+
+This lab demonstrates practical skills in:
+
+Network reconnaissance
+Service and version enumeration
+Attack surface analysis
+Use of Nmap NSE scripts
+Identification of insecure configurations
+Risk assessment
+Security documentation
+Defensive security recommendations
+Portfolio Note
+
+This is an excellent repository entry because it goes beyond simply listing open ports. It shows that you can interpret scan results, identify security implications, and provide actionable defensive recommendations—skills that are valuable in roles such as SOC Analyst, Vulnerability Analyst, and Penetration Tester.
