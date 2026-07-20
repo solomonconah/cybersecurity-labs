@@ -1,0 +1,135 @@
+msf > db_nmap -Pn -n -A 172.16.59.129
+[*] Nmap: Starting Nmap 7.99 ( https://nmap.org ) at 2026-07-20 05:20 -0400
+[*] Nmap: Nmap scan report for 172.16.59.129
+[*] Nmap: Host is up (0.0016s latency).
+[*] Nmap: Not shown: 977 closed tcp ports (reset)
+[*] Nmap: PORT     STATE SERVICE     VERSION
+[*] Nmap: 21/tcp   open  ftp         vsftpd 2.3.4
+[*] Nmap: | ftp-syst:
+[*] Nmap: |   STAT:
+[*] Nmap: | FTP server status:
+[*] Nmap: |      Connected to 172.16.59.128
+[*] Nmap: |      Logged in as ftp
+[*] Nmap: |      TYPE: ASCII
+[*] Nmap: |      No session bandwidth limit
+[*] Nmap: |      Session timeout in seconds is 300
+[*] Nmap: |      Control connection is plain text
+[*] Nmap: |      Data connections will be plain text
+[*] Nmap: |      vsFTPd 2.3.4 - secure, fast, stable
+[*] Nmap: |_End of status
+[*] Nmap: |_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+[*] Nmap: 22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+[*] Nmap: | ssh-hostkey:
+[*] Nmap: |   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+[*] Nmap: |_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+[*] Nmap: 23/tcp   open  telnet      Linux telnetd
+[*] Nmap: 25/tcp   open  smtp        Postfix smtpd
+[*] Nmap: |_smtp-commands: metasploitable.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN
+[*] Nmap: |_ssl-date: 2026-07-18T17:40:18+00:00; -1d15h40m19s from scanner time.
+[*] Nmap: | ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+[*] Nmap: | Not valid before: 2010-03-17T14:07:45
+[*] Nmap: |_Not valid after:  2010-04-16T14:07:45
+[*] Nmap: | sslv2:
+[*] Nmap: |   SSLv2 supported
+[*] Nmap: |   ciphers:
+[*] Nmap: |     SSL2_RC4_128_WITH_MD5
+[*] Nmap: |     SSL2_DES_192_EDE3_CBC_WITH_MD5
+[*] Nmap: |     SSL2_RC2_128_CBC_EXPORT40_WITH_MD5
+[*] Nmap: |     SSL2_RC4_128_EXPORT40_WITH_MD5
+[*] Nmap: |     SSL2_DES_64_CBC_WITH_MD5
+[*] Nmap: |_    SSL2_RC2_128_CBC_WITH_MD5
+[*] Nmap: 53/tcp   open  domain      ISC BIND 9.4.2
+[*] Nmap: | dns-nsid:
+[*] Nmap: |_  bind.version: 9.4.2
+[*] Nmap: 80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+[*] Nmap: |_http-title: Metasploitable2 - Linux
+[*] Nmap: |_http-server-header: Apache/2.2.8 (Ubuntu) DAV/2
+[*] Nmap: 111/tcp  open  rpcbind     2 (RPC #100000)
+[*] Nmap: | rpcinfo:
+[*] Nmap: |   program version    port/proto  service
+[*] Nmap: |   100000  2            111/tcp   rpcbind
+[*] Nmap: |   100000  2            111/udp   rpcbind
+[*] Nmap: |   100003  2,3,4       2049/tcp   nfs
+[*] Nmap: |   100003  2,3,4       2049/udp   nfs
+[*] Nmap: |   100005  1,2,3      46338/udp   mountd
+[*] Nmap: |   100005  1,2,3      52401/tcp   mountd
+[*] Nmap: |   100021  1,3,4      53332/tcp   nlockmgr
+[*] Nmap: |   100021  1,3,4      58695/udp   nlockmgr
+[*] Nmap: |   100024  1          39220/udp   status
+[*] Nmap: |_  100024  1          48691/tcp   status
+[*] Nmap: 139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+[*] Nmap: 445/tcp  open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+[*] Nmap: 512/tcp  open  exec        netkit-rsh rexecd
+[*] Nmap: 513/tcp  open  login       OpenBSD or Solaris rlogind
+[*] Nmap: 514/tcp  open  shell       Netkit rshd
+[*] Nmap: 1099/tcp open  java-rmi    GNU Classpath grmiregistry
+[*] Nmap: 1524/tcp open  bindshell   Metasploitable root shell
+[*] Nmap: 2049/tcp open  nfs         2-4 (RPC #100003)
+[*] Nmap: 2121/tcp open  ftp         ProFTPD 1.3.1
+[*] Nmap: 3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+[*] Nmap: | mysql-info:
+[*] Nmap: |   Protocol: 10
+[*] Nmap: |   Version: 5.0.51a-3ubuntu5
+[*] Nmap: |   Thread ID: 11
+[*] Nmap: |   Capabilities flags: 43564
+[*] Nmap: |   Some Capabilities: SupportsTransactions, Support41Auth, SwitchToSSLAfterHandshake, Speaks41ProtocolNew, SupportsCompression, ConnectWithDatabase, LongColumnFlag
+[*] Nmap: |   Status: Autocommit
+[*] Nmap: |_  Salt: G-IiVS}?\4.+*0S2@,XX
+[*] Nmap: 5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+[*] Nmap: | ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+[*] Nmap: | Not valid before: 2010-03-17T14:07:45
+[*] Nmap: |_Not valid after:  2010-04-16T14:07:45
+[*] Nmap: |_ssl-date: 2026-07-18T17:40:18+00:00; -1d15h40m19s from scanner time.
+[*] Nmap: 5900/tcp open  vnc         VNC (protocol 3.3)
+[*] Nmap: | vnc-info:
+[*] Nmap: |   Protocol version: 3.3
+[*] Nmap: |   Security types:
+[*] Nmap: |_    VNC Authentication (2)
+[*] Nmap: 6000/tcp open  X11         (access denied)
+[*] Nmap: 6667/tcp open  irc         UnrealIRCd
+[*] Nmap: | irc-info:
+[*] Nmap: |   users: 1
+[*] Nmap: |   servers: 1
+[*] Nmap: |   lusers: 1
+[*] Nmap: |   lservers: 0
+[*] Nmap: |   server: irc.Metasploitable.LAN
+[*] Nmap: |   version: Unreal3.2.8.1. irc.Metasploitable.LAN
+[*] Nmap: |   uptime: 0 days, 1:31:20
+[*] Nmap: |   source ident: nmap
+[*] Nmap: |   source host: E0C1F890.FE144C88.168799A3.IP
+[*] Nmap: |_  error: Closing Link: vbryhxtcr[172.16.59.128] (Quit: vbryhxtcr)
+[*] Nmap: 8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+[*] Nmap: |_ajp-methods: Failed to get a valid response for the OPTION request
+[*] Nmap: 8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
+[*] Nmap: |_http-server-header: Apache-Coyote/1.1
+[*] Nmap: |_http-favicon: Apache Tomcat
+[*] Nmap: |_http-title: Apache Tomcat/5.5
+[*] Nmap: MAC Address: 00:0C:29:EE:59:3D (VMware)
+[*] Nmap: Device type: general purpose
+[*] Nmap: Running: Linux 2.6.X
+[*] Nmap: OS CPE: cpe:/o:linux:linux_kernel:2.6
+[*] Nmap: OS details: Linux 2.6.9 - 2.6.33
+[*] Nmap: Network Distance: 1 hop
+[*] Nmap: Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+[*] Nmap: Host script results:
+[*] Nmap: |_clock-skew: mean: -1d14h40m19s, deviation: 2h00m00s, median: -1d15h40m19s
+[*] Nmap: | smb-os-discovery:
+[*] Nmap: |   OS: Unix (Samba 3.0.20-Debian)
+[*] Nmap: |   Computer name: metasploitable
+[*] Nmap: |   NetBIOS computer name:
+[*] Nmap: |   Domain name: localdomain
+[*] Nmap: |   FQDN: metasploitable.localdomain
+[*] Nmap: |_  System time: 2026-07-18T13:40:09-04:00
+[*] Nmap: | smb-security-mode:
+[*] Nmap: |   account_used: <blank>
+[*] Nmap: |   authentication_level: user
+[*] Nmap: |   challenge_response: supported
+[*] Nmap: |_  message_signing: disabled (dangerous, but default)
+[*] Nmap: |_smb2-time: Protocol negotiation failed (SMB2)
+[*] Nmap: |_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+[*] Nmap: TRACEROUTE
+[*] Nmap: HOP RTT     ADDRESS
+[*] Nmap: 1   1.58 ms 172.16.59.129
+[*] Nmap: OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 24.42 seconds
+/usr/share/metasploit-framework/vendor/bundle/ruby/3.3.0/gems/recog-3.1.26/lib/recog/fingerprint/regexp_factory.rb:34: warning: nested repeat operator '+' and '?' was replaced with '*' in regular expression

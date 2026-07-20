@@ -1,0 +1,37 @@
+msf > db_nmap -Pn -n -O 172.16.59.129
+[*] Nmap: Starting Nmap 7.99 ( https://nmap.org ) at 2026-07-20 05:31 -0400
+[*] Nmap: Nmap scan report for 172.16.59.129
+[*] Nmap: Host is up (0.00096s latency).
+[*] Nmap: Not shown: 977 closed tcp ports (reset)
+[*] Nmap: PORT     STATE SERVICE
+[*] Nmap: 21/tcp   open  ftp
+[*] Nmap: 22/tcp   open  ssh
+[*] Nmap: 23/tcp   open  telnet
+[*] Nmap: 25/tcp   open  smtp
+[*] Nmap: 53/tcp   open  domain
+[*] Nmap: 80/tcp   open  http
+[*] Nmap: 111/tcp  open  rpcbind
+[*] Nmap: 139/tcp  open  netbios-ssn
+[*] Nmap: 445/tcp  open  microsoft-ds
+[*] Nmap: 512/tcp  open  exec
+[*] Nmap: 513/tcp  open  login
+[*] Nmap: 514/tcp  open  shell
+[*] Nmap: 1099/tcp open  rmiregistry
+[*] Nmap: 1524/tcp open  ingreslock
+[*] Nmap: 2049/tcp open  nfs
+[*] Nmap: 2121/tcp open  ccproxy-ftp
+[*] Nmap: 3306/tcp open  mysql
+[*] Nmap: 5432/tcp open  postgresql
+[*] Nmap: 5900/tcp open  vnc
+[*] Nmap: 6000/tcp open  X11
+[*] Nmap: 6667/tcp open  irc
+[*] Nmap: 8009/tcp open  ajp13
+[*] Nmap: 8180/tcp open  unknown
+[*] Nmap: MAC Address: 00:0C:29:EE:59:3D (VMware)
+[*] Nmap: Device type: general purpose
+[*] Nmap: Running: Linux 2.6.X
+[*] Nmap: OS CPE: cpe:/o:linux:linux_kernel:2.6
+[*] Nmap: OS details: Linux 2.6.9 - 2.6.33
+[*] Nmap: Network Distance: 1 hop
+[*] Nmap: OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+[*] Nmap: Nmap done: 1 IP address (1 host up) scanned in 3.92 seconds
