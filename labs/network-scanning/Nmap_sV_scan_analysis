@@ -1,0 +1,297 @@
+Analysis of Nmap Service Enumeration Scan
+Executive Summary
+
+An Nmap version detection scan (-sV) was conducted against the target host 172.16.59.129 from a Kali Linux system using the Metasploit db_nmap command.
+
+The objective of the scan was to identify:
+
+Active services
+Open TCP ports
+Service versions
+Potential attack surface
+
+The target appears to be Metasploitable 2, an intentionally vulnerable Linux virtual machine designed for penetration testing practice.
+
+Scan Information
+Item	Value
+Scanner	Nmap 7.99
+Scan Type	Service Version Detection
+Command	db_nmap -Pn -n -sV 172.16.59.129
+Host Status	Up
+Latency	0.0017 seconds
+Closed Ports	977
+Open Ports	23
+Command Analysis
+db_nmap -Pn -n -sV 172.16.59.129
+Meaning of the Parameters
+Option	Description
+db_nmap	Executes Nmap through the Metasploit Framework and stores scan results in the Metasploit database.
+-Pn	Skips host discovery and assumes the target is online. Useful when ICMP responses are filtered.
+-n	Disables DNS resolution to speed up scanning.
+-sV	Attempts to determine the version of services listening on open ports.
+Host Information
+
+Nmap identified:
+
+Operating System Family: Linux / Unix
+Hostname:
+metasploitable.localdomain
+
+MAC Vendor:
+
+VMware
+
+This indicates the target is running inside a VMware virtual environment.
+
+Service Enumeration Analysis
+FTP (21)
+vsftpd 2.3.4
+Observation
+
+This is one of the most well-known vulnerable FTP servers.
+
+Historically, compromised versions of vsftpd 2.3.4 have been associated with a backdoor that allows unauthorized shell access under specific circumstances. The version alone does not prove the backdoor is present, but it warrants investigation in a controlled lab.
+
+Risk Level: High
+
+SSH (22)
+OpenSSH 4.7p1
+Observation
+
+SSH provides encrypted remote administration.
+
+The detected version is considerably outdated by modern standards. Older SSH implementations may lack support for newer cryptographic algorithms and may contain vulnerabilities that have since been addressed.
+
+Risk Level: Medium
+
+Telnet (23)
+Linux telnetd
+Observation
+
+Telnet transmits all communication, including usernames and passwords, in plaintext.
+
+Its presence represents a significant security concern on production systems because credentials can be intercepted on the network.
+
+Risk Level: High
+
+SMTP (25)
+Postfix
+Observation
+
+Mail services should be reviewed for:
+
+Open relay configuration
+User enumeration
+Misconfigurations
+Information disclosure
+
+Risk Level: Medium
+
+DNS (53)
+ISC BIND 9.4.2
+Observation
+
+Older versions of BIND have been affected by multiple security issues over the years.
+
+A DNS service should also be assessed for:
+
+Zone transfers
+Cache poisoning protections
+Recursion settings
+
+Risk Level: Medium
+
+HTTP (80)
+Apache HTTP Server 2.2.8
+Observation
+
+Apache 2.2.8 is an older release.
+
+Potential assessment areas include:
+
+Default pages
+Directory listing
+Outdated modules
+Web application vulnerabilities
+HTTP methods
+
+Risk Level: Medium to High
+
+Samba (139, 445)
+Samba 3.x–4.x
+Observation
+
+SMB is commonly targeted during internal network assessments.
+
+Typical review areas include:
+
+Anonymous access
+Shared folders
+Authentication configuration
+SMB version support
+
+Risk Level: High
+
+Remote Shell Services (512–514)
+
+Detected:
+
+rexecd
+rlogin
+rsh
+Observation
+
+These legacy remote administration protocols transmit data insecurely and are generally considered obsolete.
+
+Their presence significantly increases the exposed attack surface.
+
+Risk Level: High
+
+Java RMI (1099)
+GNU Classpath RMI Registry
+Observation
+
+Java RMI services can expose remote objects.
+
+Misconfigured RMI services may permit unauthorized interactions or remote code execution in vulnerable environments.
+
+Risk Level: Medium
+
+Root Bind Shell (1524)
+Metasploitable Root Shell
+Observation
+
+This service is intentionally included in Metasploitable 2 as part of its training environment.
+
+On a real production system, an exposed root shell would represent a critical security incident.
+
+Risk Level: Critical
+
+NFS (2049)
+NFS v2–4
+Observation
+
+Network File System services should be checked for:
+
+Exported shares
+Authentication controls
+Excessive permissions
+
+Risk Level: Medium
+
+FTP (2121)
+ProFTPD 1.3.1
+Observation
+
+A second FTP service is running.
+
+Multiple FTP services increase the attack surface and should be evaluated independently.
+
+Risk Level: Medium
+
+MySQL (3306)
+MySQL 5.0.51a
+Observation
+
+Database services should not normally be exposed unless required.
+
+Assessment areas include:
+
+Weak credentials
+Default accounts
+Network access restrictions
+Version-specific vulnerabilities
+
+Risk Level: High
+
+PostgreSQL (5432)
+PostgreSQL 8.3.x
+Observation
+
+An older PostgreSQL release is exposed.
+
+Review should include:
+
+Authentication configuration
+Default credentials
+Network exposure
+
+Risk Level: Medium
+
+VNC (5900)
+Protocol 3.3
+Observation
+
+Older VNC implementations often rely on weaker authentication mechanisms and may lack encryption by default.
+
+Risk Level: Medium
+
+UnrealIRCd (6667)
+Observation
+
+This service is intentionally included in Metasploitable for training.
+
+Historically, compromised distributions of UnrealIRCd have been associated with remote code execution through a backdoor.
+
+Risk Level: High
+
+Apache JServ (8009)
+AJP13
+Observation
+
+AJP connectors should not normally be exposed to untrusted networks.
+
+Misconfigurations have historically enabled attacks such as Ghostcat (on affected configurations).
+
+Risk Level: Medium
+
+Apache Tomcat (8180)
+Apache Tomcat
+Observation
+
+Tomcat commonly exposes:
+
+Administrative interfaces
+Sample applications
+Deployment services
+
+These should be carefully secured in production.
+
+Risk Level: Medium
+
+Overall Assessment
+
+The scan identified 23 open TCP services, many of which are legacy or intentionally vulnerable components. This creates a broad attack surface suitable for penetration testing exercises but would represent significant risk in a production environment.
+
+Key Observations
+Numerous outdated service versions.
+Multiple legacy remote access protocols (Telnet, RSH, Rlogin).
+Several network-facing database services.
+Multiple file-sharing and remote administration services.
+A large number of services that would require hardening or removal in a production environment.
+Recommendations
+
+From a defensive standpoint, the following actions would reduce risk:
+
+Disable unnecessary network services.
+Replace insecure protocols (such as Telnet) with secure alternatives like SSH.
+Restrict administrative services to trusted networks.
+Apply vendor-supported software updates and security patches.
+Implement host-based and network firewalls to limit exposure.
+Regularly perform vulnerability assessments and configuration reviews.
+Remove default credentials and unnecessary applications.
+Monitor exposed services through continuous security logging and alerting.
+Skills Demonstrated
+
+This lab demonstrates practical skills in:
+
+Network reconnaissance
+Service enumeration
+Version detection
+Attack surface identification
+Security documentation
+Risk assessment
+Defensive security analysis
+Use of Nmap within the Metasploit Framework
+
+This level of documentation is the kind of content that helps a GitHub repository stand out because it explains not just what the scan found, but also why the findings matter and how they would be approached from a defender's perspective.
