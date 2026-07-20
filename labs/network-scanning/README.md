@@ -281,6 +281,161 @@ The nmap_metasploit_scan_sv results reveal a broad attack surface characterized 
 
 ## Mitigation
 
+Mitigations
+1. Reduce the Attack Surface
+Issue
+
+The scan identified 23 open TCP ports, exposing numerous services to the network.
+
+Mitigation
+Disable or uninstall services that are not required for business operations.
+Close unused ports using host-based or network firewalls.
+Apply the Principle of Least Functionality, ensuring that only essential services are enabled.
+Perform periodic service reviews and remove obsolete applications.
+2. Secure or Replace FTP Services
+Issue
+
+The host exposes FTP services (vsftpd and ProFTPD).
+
+Mitigation
+Replace FTP with SFTP (SSH File Transfer Protocol) or FTPS to encrypt data in transit.
+Disable anonymous FTP access unless there is a documented business requirement.
+Enforce strong authentication and monitor file transfer activity.
+Keep FTP software updated with vendor-supported versions.
+3. Disable Telnet
+Issue
+
+The Telnet service is enabled and transmits credentials in plaintext.
+
+Mitigation
+Disable the Telnet service.
+Use SSH for remote administration.
+Restrict SSH access to authorized users and trusted networks.
+Implement key-based authentication where appropriate.
+4. Upgrade Outdated Software
+Issue
+
+Several services appear to be running older software versions.
+
+Mitigation
+Implement a structured patch management process.
+Upgrade software to supported versions.
+Subscribe to vendor security advisories.
+Regularly perform vulnerability scans to identify outdated software.
+5. Secure SMB Services
+Issue
+
+SMB services are exposed on ports 139 and 445.
+
+Mitigation
+Restrict SMB access using firewall rules.
+Disable SMBv1 if present and use newer, supported SMB versions.
+Limit shared folders to authorized users.
+Enable auditing and logging of SMB activity.
+Apply security updates for the SMB service.
+6. Remove Legacy Remote Administration Services
+Issue
+
+Legacy services such as rexec, rlogin, and rsh are enabled.
+
+Mitigation
+Disable all legacy remote administration protocols.
+Standardize on SSH for remote access.
+Restrict administrative access through access control lists (ACLs) or VPNs.
+Regularly review remote administration services for necessity.
+7. Protect Database Services
+Issue
+
+MySQL and PostgreSQL services are accessible over the network.
+
+Mitigation
+Restrict database access to trusted hosts or application servers.
+Implement strong authentication and least-privilege database accounts.
+Encrypt network traffic using TLS where supported.
+Disable remote access if local access is sufficient.
+Keep database software patched and supported.
+8. Secure Remote Desktop Services
+Issue
+
+The VNC service is exposed.
+
+Mitigation
+Restrict VNC access using firewalls or VPNs.
+Require strong authentication and, where supported, encryption.
+Disable the service when it is not required.
+Monitor remote access logs for unauthorized activity.
+9. Harden Web Servers
+Issue
+
+Apache HTTP Server and Apache Tomcat are exposed.
+
+Mitigation
+Upgrade to supported software versions.
+Remove default pages, sample applications, and unnecessary modules.
+Disable server version banners where feasible.
+Apply secure HTTP response headers.
+Conduct regular web application security testing.
+10. Secure RPC and NFS Services
+Issue
+
+RPC and NFS services are accessible.
+
+Mitigation
+Restrict access to trusted internal networks.
+Configure NFS exports using the principle of least privilege.
+Disable unused RPC services.
+Regularly review file-sharing permissions.
+11. Restrict Service Version Disclosure
+Issue
+
+Service version information is exposed during scanning.
+
+Mitigation
+Configure services to minimize version and banner disclosure where practical.
+Use reverse proxies or hardened configurations to limit unnecessary information exposure.
+Recognize that banner suppression complements—but does not replace—timely patching and secure configuration.
+12. Implement Network Segmentation
+Issue
+
+Numerous services are directly reachable.
+
+Mitigation
+Separate critical systems into dedicated network segments.
+Use firewalls to restrict communication between segments.
+Expose only services that are required for business operations.
+Apply a default-deny approach to inbound network traffic.
+13. Strengthen Monitoring and Logging
+Issue
+
+Multiple exposed services increase the likelihood of security events.
+
+Mitigation
+Centralize system and application logs using a SIEM solution.
+Monitor authentication attempts, service activity, and network connections.
+Configure alerts for unusual or unauthorized behavior.
+Regularly review logs as part of incident detection and response.
+14. Conduct Regular Security Assessments
+Issue
+
+Routine security validation is essential to maintain a strong security posture.
+
+Mitigation
+Schedule regular vulnerability assessments and penetration tests.
+Validate remediation efforts through follow-up scans.
+Maintain an accurate inventory of systems and services.
+Review configurations against recognized security benchmarks (such as CIS Benchmarks where applicable).
+Overall Remediation Strategy
+
+The assessment identified a broad attack surface, legacy services, and several outdated software versions. Although these characteristics are expected in the intentionally vulnerable Metasploitable 2 environment, a comparable production system should prioritize the following actions:
+
+Remove unnecessary services and close unused ports.
+Replace insecure legacy protocols (such as Telnet, RSH, and FTP) with secure alternatives.
+Upgrade unsupported or outdated software.
+Restrict administrative and database services to trusted networks.
+Implement network segmentation and least-privilege access controls.
+Establish continuous vulnerability management, monitoring, and patch management processes.
+
+These mitigations follow established defensive practices and provide a clear roadmap for reducing the attack surface while improving the overall security posture of a production environment.
 ...
 
 ## Lessons Learned
